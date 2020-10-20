@@ -45,7 +45,7 @@ private:
 	std::vector<Label*> m_instructions;
 	
 	Label* m_pTimeRequiredLabel;
-	Label* m_pCurrentLandPosLabel;
+	Label* m_pAcceleration;
 	
 };
 

@@ -3,6 +3,7 @@
 #define __PROJECTILE_MANAGER_H__
 
 #include <algorithm>
+//#include <GLM/detail/func_trigonometric.inl>
 #include <GLM/detail/type_vec2.hpp>
 
 #include "Box.h"
@@ -11,11 +12,14 @@
 class SimulationManager
 {
 public:
-	static float getAngle() { return m_angle; }
+	static float getAngle() {
+		return m_angle;
+	} //glm::degrees(m_angle); }
 	static float getRise() { return m_rise; }
 	static float getRun() { return m_run; }
+	static float getAcceleration() { return m_acceleration; }
 	static float getMass() { return m_mass; }
-	static float getTime() { return m_timeVar; }
+	static float getTime();
 	
 	static void launchSimulation();
 
@@ -37,8 +41,6 @@ private:
 	static void changeAngle(float num) { m_angle = std::clamp(m_angle + num, Config::MIN_RISE, Config::MAX_RISE); }
 	static void drawRamp();
 	
-	static float m_timeVar;
-	
 	static bool m_simulation;
 
 	static float m_mass;
@@ -50,6 +52,11 @@ private:
 	static float m_curtime;
 
 	static Box* m_pBox;
+
+	// Simulation staff
+	static float m_acceleration;
+	static float m_velocity;
+	static glm::vec2 m_direction;
 };
 
 typedef SimulationManager SIMA;

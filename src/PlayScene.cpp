@@ -39,7 +39,8 @@ void PlayScene::update()
 	m_pRampRunLabel->setText("Run = " + std::to_string(static_cast<int>(SIMA::getRun()) * Config::PIX_TO_MET) + " m");
 	
 	m_pAngleLabel->setText("Angle = " + std::to_string(SIMA::getAngle()));
-	
+
+	m_pAcceleration->setText("Acceleration: " + std::to_string(SIMA::getAcceleration()) + " m / s^2");
 	m_pTimeRequiredLabel->setText("Time required: " + std::to_string(SIMA::getTime()) + " s");
 }
 
@@ -115,7 +116,10 @@ void PlayScene::handleEvents()
 			m_changeRise = 0;
 		}
 
-		
+		if (EventManager::Instance().KeyPressed(SDL_SCANCODE_SPACE))
+		{
+			SIMA::launchSimulation();
+		}
 
 		if (EventManager::Instance().KeyPressed(SDL_SCANCODE_H))
 		{
@@ -171,9 +175,9 @@ void PlayScene::start()
 	m_pTimeRequiredLabel->setParent(this);
 	addChild(m_pTimeRequiredLabel);
 
-	m_pCurrentLandPosLabel = new Label("Land x pos:", "Tusj", 30, white, glm::vec2(750.0f, 55.0f));
-	m_pCurrentLandPosLabel->setParent(this);
-	addChild(m_pCurrentLandPosLabel);
+	m_pAcceleration = new Label("Land x pos:", "Tusj", 30, white, glm::vec2(750.0f, 55.0f));
+	m_pAcceleration->setParent(this);
+	addChild(m_pAcceleration);
 
 	const SDL_Color light_green = { 220, 255, 220, 255 };
 	std::string instructions[] = { "H - close instructions", "R - reset" ,"A|D - change distance","W|S - change speed",
@@ -186,5 +190,5 @@ void PlayScene::start()
 	}
 
 	m_pShowInstuctionsLabel = new Label("H - open instructions", "Tusj", 30, light_green, glm::vec2(750.0f, 140.0f));
-	m_pCurrentLandPosLabel->setParent(this);
+	m_pAcceleration->setParent(this);
 }
