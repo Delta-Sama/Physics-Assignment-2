@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "EventManager.h"
 #include "SimulationManager.h"
+#include "../Template/DebugManager.h"
 
 PlayScene::PlayScene()
 {
@@ -32,29 +33,14 @@ void PlayScene::update()
 {
 	updateDisplayList();
 
-	m_pEnemies->getTransform()->position = glm::vec2(Config::START_POINT + SIMA::getDistance() * Config::MET_TO_PIX - m_pEnemies->getWidth(),
-		Config::START_Y - m_pEnemies->getHeight() / 2);
-
-	m_pMassLabel->setText("Mass = " + std::to_string(static_cast<int>(SIMA::getDistance())) + " m");
-	m_pRampRiseLabel->setText("Angle = " + std::to_string(SIMA::getAngle()));
-	if (SIMA::getAngle() == 0.0f && SIMA::getDistance() != 0)
-	{
-		m_pRampRiseLabel->setText("impossible to reach");
-	}
-	m_pRampRunLabel->setText("Speed = " + std::to_string(static_cast<int>(SIMA::getSpeed())) + " m\s");
-
+	m_pMassLabel->setText("Mass = " + std::to_string(SIMA::getMass()) + " kg");
+	
+	m_pRampRiseLabel->setText("Rise = " + std::to_string(static_cast<int>(SIMA::getRise())) + " m");
+	m_pRampRunLabel->setText("Run = " + std::to_string(static_cast<int>(SIMA::getRun())) + " m");
+	
+	m_pAngleLabel->setText("Angle = " + std::to_string(SIMA::getAngle()));
+	
 	m_pTimeRequiredLabel->setText("Time required: " + std::to_string(SIMA::getTime()) + " s");
-	m_pCurrentLandPosLabel->setText("Land pos.x: " + std::to_string(static_cast<int>(SIMA::getLandPos())) + " m");
-	
-	if (SIMA::getProjectile())
-	{
-		std::string pos = std::to_string(static_cast<int>((SIMA::getProjectile()->getTransform()->position.x - Config::START_X) * Config::PIX_TO_MET)) + ";"
-           + std::to_string(static_cast<int>((Config::START_Y - SIMA::getProjectile()->getTransform()->position.y) * Config::PIX_TO_MET));
-		m_pAngleLabel->setText("Proj: (" + pos + ")");
-	}
-	else
-		m_pAngleLabel->setText(" ");
-	
 }
 
 void PlayScene::clean()
@@ -77,11 +63,19 @@ void PlayScene::handleEvents()
 	{
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 		{
-			SIMA::changeDistance(-Config::CHANGE_DIST);
+			SIMA::changeRun(-Config::CHANGE_RUN);
 		}
 		else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
 		{
-			SIMA::changeDistance(Config::CHANGE_DIST);
+			SIMA::changeRun(Config::CHANGE_RUN);
+		}
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
+		{
+			SIMA::changeRise(Config::CHANGE_RISE);
+		}
+		else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
+		{
+			SIMA::changeRise(-Config::CHANGE_RISE);
 		}
 
 		if (EventManager::Instance().KeyPressed(SDL_SCANCODE_H))
@@ -110,17 +104,9 @@ void PlayScene::start()
 	m_pBackground = new Background();
 	m_pBackground->getTransform()->position = glm::vec2(0.0f, 0.0f);
 	addChild(m_pBackground);
-	
-	m_pWookiee = new Player();
-	m_pWookiee->getTransform()->position = glm::vec2(Config::START_X, Config::START_Y - m_pWookiee->getHeight()/2);
-	addChild(m_pWookiee);
-
-	m_pEnemies = new Enemy();
-	m_pEnemies->getTransform()->position = glm::vec2(850.0f, Config::START_Y - m_pEnemies->getHeight() / 2);
-	addChild(m_pEnemies);
 
 	const SDL_Color white = { 255, 255, 255, 255 };
-	m_pMassLabel = new Label("Maxx", "Tusj", 30, white, glm::vec2(160.0f, 40.0f));
+	m_pMassLabel = new Label("Mass", "Tusj", 30, white, glm::vec2(160.0f, 40.0f));
 	m_pMassLabel->setParent(this);
 	addChild(m_pMassLabel);
 
@@ -132,7 +118,7 @@ void PlayScene::start()
 	m_pRampRunLabel->setParent(this);
 	addChild(m_pRampRunLabel);
 
-	m_pAngleLabel = new Label("Angle", "Tusj", 30, white, glm::vec2(160.0f, 285.0f));
+	m_pAngleLabel = new Label("Angle", "Tusj", 30, white, glm::vec2(160.0f, 145.0f));
 	m_pAngleLabel->setParent(this);
 	addChild(m_pAngleLabel);
 

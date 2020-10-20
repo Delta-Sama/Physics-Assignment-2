@@ -12,6 +12,9 @@ class SimulationManager
 {
 public:
 	static float getAngle() { return m_angle; }
+	static float getRise() { return m_rise; }
+	static float getRun() { return m_run; }
+	static float getMass() { return m_mass; }
 	static float getTime() { return m_timeVar; }
 	
 	static void launchSimulation();
@@ -21,23 +24,25 @@ public:
 	static void update();
 	static void reset();
 
-	static void setRise(float num) { m_rise = std::clamp(num, Config::MIN_RISE, Config::MAX_RISE); }
-	static void setRUN(float num) { m_run = std::clamp(num, Config::MIN_RUN, Config::MAX_RUN); }
+	static void changeRise(float num) { m_rise = std::clamp(m_rise + num, Config::MIN_RISE, Config::MAX_RISE); }
+	static void changeRun(float num) { m_run = std::clamp(m_run + num, Config::MIN_RUN, Config::MAX_RUN); }
 	static float calculateTime();
 	
 private:
 	SimulationManager();
 	~SimulationManager();
 
-	static void changeAngle(float num);
-
+	static void changeAngle(float num) { m_angle = std::clamp(m_angle + num, Config::MIN_RISE, Config::MAX_RISE); }
+	static void drawRamp();
+	
 	static float m_timeVar;
 	
 	static bool m_simulation;
-	
+
+	static float m_mass;
 	static float m_angle;
-	static float m_rise;
-	static float m_run;
+	static int m_rise;
+	static int m_run;
 
 	static float m_time;
 	static float m_curtime;

@@ -2,8 +2,6 @@
 #include "Util.h"
 #include <algorithm>
 
-
-
 int CollisionManager::squaredDistance(const glm::vec2 p1, const glm::vec2 p2)
 {
 	const int diffOfXs = p2.x - p1.x;
@@ -174,10 +172,10 @@ int CollisionManager::minSquaredDistanceLineLine(glm::vec2 line1_start, glm::vec
 	return norm;
 }
 
-bool CollisionManager::lineAABBCheck(Ship* object1, GameObject* object2)
+bool CollisionManager::lineAABBCheck(GameObject* object1, GameObject* object2)
 {
 	const auto lineStart = object1->getTransform()->position;
-	const auto lineEnd = object1->getTransform()->position + object1->getCurrentDirection() * 100.0f;
+	const auto lineEnd = object1->getTransform()->position;
 	// aabb
 	const auto boxWidth = object2->getWidth();
 	const int halfBoxWidth = boxWidth * 0.5f;

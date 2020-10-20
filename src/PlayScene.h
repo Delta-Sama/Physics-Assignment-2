@@ -26,8 +26,6 @@ private:
 
 	bool m_instructionsEnabled;
 	
-	Player* m_pWookiee;
-	Enemy* m_pEnemies;
 	Background* m_pBackground;
 	
 	Label* m_pMassLabel;
