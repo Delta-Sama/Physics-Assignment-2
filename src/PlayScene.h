@@ -10,6 +10,8 @@
 #include "Button.h"
 #include "Enemy.h"
 
+const int HOLD_TIME = 10;
+
 class PlayScene : public Scene
 {
 public:
@@ -26,6 +28,9 @@ private:
 	glm::vec2 m_mousePosition;
 
 	bool m_instructionsEnabled;
+
+	int m_changeRun;
+	int m_changeRise;
 
 	Box* m_pBox;
 	

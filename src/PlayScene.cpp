@@ -63,20 +63,59 @@ void PlayScene::handleEvents()
 	{
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 		{
-			SIMA::changeRun(-Config::CHANGE_RUN);
+			if (EventManager::Instance().KeyPressed(SDL_SCANCODE_A))
+			{
+				SIMA::changeRun(-Config::CHANGE_RUN);
+			}
+			if (m_changeRun++ > HOLD_TIME)
+			{
+				SIMA::changeRun(-Config::CHANGE_RUN);
+			}
 		}
 		else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
 		{
-			SIMA::changeRun(Config::CHANGE_RUN);
+			if (EventManager::Instance().KeyPressed(SDL_SCANCODE_D))
+			{
+				SIMA::changeRun(Config::CHANGE_RUN);
+			}
+			if (m_changeRun++ > HOLD_TIME)
+			{
+				SIMA::changeRun(Config::CHANGE_RUN);
+			}
 		}
+		else
+		{
+			m_changeRun = 0;
+		}
+		
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 		{
-			SIMA::changeRise(Config::CHANGE_RISE);
+			if (EventManager::Instance().KeyPressed(SDL_SCANCODE_W))
+			{
+				SIMA::changeRise(Config::CHANGE_RISE);
+			}
+			if (m_changeRise++ > HOLD_TIME)
+			{
+				SIMA::changeRise(Config::CHANGE_RISE);
+			}
 		}
 		else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
 		{
-			SIMA::changeRise(-Config::CHANGE_RISE);
+			if (EventManager::Instance().KeyPressed(SDL_SCANCODE_S))
+			{
+				SIMA::changeRise(-Config::CHANGE_RISE);
+			}
+			if (m_changeRise++ > HOLD_TIME)
+			{
+				SIMA::changeRise(-Config::CHANGE_RISE);
+			}
 		}
+		else
+		{
+			m_changeRise = 0;
+		}
+
+		
 
 		if (EventManager::Instance().KeyPressed(SDL_SCANCODE_H))
 		{

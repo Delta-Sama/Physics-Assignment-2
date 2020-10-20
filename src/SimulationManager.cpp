@@ -37,6 +37,8 @@ void SimulationManager::drawRamp()
 	m_pBox->getTransform()->position = glm::vec2(Config::START_X + cos(angle) * size_x + sin(angle) * size_y,
 		Config::START_Y - m_rise - (cos(angle) * size_y - sin(angle) * size_x));
 	m_pBox->getTransform()->rotation = glm::vec2(glm::degrees(angle),0.0f);
+
+	m_angle = glm::degrees(angle);
 }
 
 void SimulationManager::launchSimulation()
@@ -83,6 +85,10 @@ float SimulationManager::calculateTime()
 
 void SimulationManager::reset()
 {
+	m_angle = Config::START_ANGLE;
+	m_mass = Config::START_MASS;
+	m_rise = Config::START_RISE;
+	m_run = Config::START_RUN;
 	
 	m_simulation = false;
 }
