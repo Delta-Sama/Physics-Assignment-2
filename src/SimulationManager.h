@@ -54,6 +54,7 @@ private:
 	static Box* m_pBox;
 
 	// Simulation staff
+	static bool m_frictionSurface;
 	static float m_acceleration;
 	static float m_velocity;
 	static glm::vec2 m_direction;

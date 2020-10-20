@@ -21,6 +21,7 @@ bool SIMA::m_simulation = false;
 float SIMA::m_acceleration = 0.0f;
 float SIMA::m_velocity = 0.0f;
 glm::vec2 SIMA::m_direction = { 0.0f,0.0f };
+bool SIMA::m_frictionSurface = false;
 
 Box* SIMA::m_pBox;
 
@@ -52,6 +53,7 @@ void SimulationManager::launchSimulation()
 		//setup
 		m_direction = { cos(m_angle), sin(m_angle) };
 		m_velocity = 0.0f;
+		m_frictionSurface = false;
 	}
 }
 
@@ -81,6 +83,23 @@ void SimulationManager::update()
 			
 			m_pBox->getTransform()->position.x += m_velocity * m_direction.x * Config::MET_TO_PIX / Config::FPS;
 			m_pBox->getTransform()->position.y += m_velocity * m_direction.y * Config::MET_TO_PIX / Config::FPS;
+
+			if (m_curtime >= m_time && !m_frictionSurface)
+			{
+				m_frictionSurface = true;
+
+				m_pBox->getTransform()->position.x = Config::START_X + m_run + m_pBox->getWidth() / 2;
+				m_pBox->getTransform()->position.y = Config::START_Y - m_pBox->getHeight()/2;
+				m_pBox->getTransform()->rotation.x = 0.0f;
+				
+				m_velocity = m_velocity * cos(m_angle);
+				m_acceleration = Config::g * Config::FRICTION_COF;
+				
+				m_time = m_velocity / -m_acceleration;
+				m_curtime = 0.0f;
+				
+				m_direction = { 1, 0 };
+			}
 		}
 		else
 		{

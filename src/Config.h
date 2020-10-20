@@ -21,6 +21,8 @@ public:
 
 	static const int START_X = 20;
 	static const int START_Y = 550;
+
+	static constexpr float FRICTION_COF = 0.42f;
 	
 	static constexpr float MIN_ANGLE = 0.0f;
 	static constexpr float MAX_ANGLE = 90.0f;
