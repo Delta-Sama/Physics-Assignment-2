@@ -25,9 +25,9 @@ public:
 	static constexpr float MIN_ANGLE = 0.0f;
 	static constexpr float MAX_ANGLE = 90.0f;
 
-	static constexpr float MIN_RISE = 10.0f;
-	static constexpr float MAX_RISE = 500.0f;
-	static constexpr float MIN_RUN = 10.0f;
+	static constexpr float MIN_RISE = 20.0f;
+	static constexpr float MAX_RISE = 350.0f;
+	static constexpr float MIN_RUN = 20.0f;
 	static constexpr float MAX_RUN = 500.0f;
 
 	static constexpr float CHANGE_ANGLE = 5.0f;
@@ -38,9 +38,9 @@ public:
 	static constexpr float START_RUN = 95.0f;
 	static constexpr float START_MASS = 12.8f;
 	static constexpr float START_ANGLE = 15.0f;
-	
-	static constexpr float MET_TO_PIX = 0;// (SCREEN_WIDTH - START_POINT) / MAX_DIST;
-	static constexpr float PIX_TO_MET = 0;// 1 / MET_TO_PIX;
+
+	static constexpr float MET_TO_PIX = 20;// (SCREEN_WIDTH - START_POINT) / MAX_DIST;
+	static constexpr float PIX_TO_MET = 1 / MET_TO_PIX;
 	
 	// Define Custom Deleters for shared_ptr types
 	static void SDL_DelRes(SDL_Window* r) { SDL_DestroyWindow(r); }

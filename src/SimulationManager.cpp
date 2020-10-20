@@ -18,6 +18,8 @@ int SIMA::m_run = Config::START_RUN;
 float SIMA::m_timeVar = 0.0f;
 bool SIMA::m_simulation = false;
 
+Box* SIMA::m_pBox;
+
 SimulationManager::SimulationManager() {}
 
 SimulationManager::~SimulationManager() = default;
@@ -27,6 +29,14 @@ void SimulationManager::drawRamp()
 	DebugManager::DrawWideLine(4, { Config::START_X,Config::START_Y }, { Config::START_X + m_run,Config::START_Y }, { 255,0,0,255 });
 	DebugManager::DrawWideLine(4, { Config::START_X,Config::START_Y }, { Config::START_X,Config::START_Y - m_rise }, { 255,0,0,255 });
 	DebugManager::DrawWideLine(4, { Config::START_X + m_run,Config::START_Y }, { Config::START_X,Config::START_Y - m_rise }, { 255,0,0,255 });
+
+	float angle = atan2(m_rise,m_run);
+
+	float size_x = m_pBox->getWidth() / 2;
+	float size_y = m_pBox->getHeight() / 2;
+	m_pBox->getTransform()->position = glm::vec2(Config::START_X + cos(angle) * size_x + sin(angle) * size_y,
+		Config::START_Y - m_rise - (cos(angle) * size_y - sin(angle) * size_x));
+	m_pBox->getTransform()->rotation = glm::vec2(glm::degrees(angle),0.0f);
 }
 
 void SimulationManager::launchSimulation()

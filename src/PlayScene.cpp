@@ -35,8 +35,8 @@ void PlayScene::update()
 
 	m_pMassLabel->setText("Mass = " + std::to_string(SIMA::getMass()) + " kg");
 	
-	m_pRampRiseLabel->setText("Rise = " + std::to_string(static_cast<int>(SIMA::getRise())) + " m");
-	m_pRampRunLabel->setText("Run = " + std::to_string(static_cast<int>(SIMA::getRun())) + " m");
+	m_pRampRiseLabel->setText("Rise = " + std::to_string(static_cast<int>(SIMA::getRise()) * Config::PIX_TO_MET) + " m");
+	m_pRampRunLabel->setText("Run = " + std::to_string(static_cast<int>(SIMA::getRun()) * Config::PIX_TO_MET) + " m");
 	
 	m_pAngleLabel->setText("Angle = " + std::to_string(SIMA::getAngle()));
 	
@@ -104,6 +104,12 @@ void PlayScene::start()
 	m_pBackground = new Background();
 	m_pBackground->getTransform()->position = glm::vec2(0.0f, 0.0f);
 	addChild(m_pBackground);
+
+	m_pBox = new Box();
+	m_pBox->getTransform()->position = glm::vec2(120.0f, 120.0f);
+	addChild(m_pBox);
+
+	SIMA::setBox(m_pBox);
 
 	const SDL_Color white = { 255, 255, 255, 255 };
 	m_pMassLabel = new Label("Mass", "Tusj", 30, white, glm::vec2(160.0f, 40.0f));

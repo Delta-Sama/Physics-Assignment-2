@@ -3,10 +3,10 @@
 
 Box::Box()
 {
-	TextureManager::Instance()->load("../Assets/textures/Granade.png", "granade");
+	TextureManager::Instance()->load("../Assets/sprites/Lootbox.png", "lootbox");
 
-	setWidth(15);
-	setHeight(15);
+	setWidth(25);
+	setHeight(25);
 
 	getTransform()->position = glm::vec2(0.0f, 0.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
@@ -25,7 +25,7 @@ void Box::draw()
 	const auto y = getTransform()->position.y;
 	const float ang = getTransform()->rotation.x;
 	
-	TextureManager::Instance()->draw("granade", x, y, ang, 255, true, SDL_FLIP_NONE, { getWidth(),getHeight() });
+	TextureManager::Instance()->draw("lootbox", x, y, ang, 255, true, SDL_FLIP_NONE, { getWidth(),getHeight() });
 }
 
 void Box::update()

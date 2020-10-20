@@ -3,6 +3,7 @@
 #define __PLAY_SCENE__
 
 #include "Background.h"
+#include "Box.h"
 #include "Scene.h"
 #include "WayPoint.h"
 #include "Player.h"
@@ -25,6 +26,8 @@ private:
 	glm::vec2 m_mousePosition;
 
 	bool m_instructionsEnabled;
+
+	Box* m_pBox;
 	
 	Background* m_pBackground;
 	

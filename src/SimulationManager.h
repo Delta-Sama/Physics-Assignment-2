@@ -27,6 +27,8 @@ public:
 	static void changeRise(float num) { m_rise = std::clamp(m_rise + num, Config::MIN_RISE, Config::MAX_RISE); }
 	static void changeRun(float num) { m_run = std::clamp(m_run + num, Config::MIN_RUN, Config::MAX_RUN); }
 	static float calculateTime();
+
+	static void setBox(Box* box) { m_pBox = box; }
 	
 private:
 	SimulationManager();
@@ -47,7 +49,7 @@ private:
 	static float m_time;
 	static float m_curtime;
 
-	static Box* m_projectile;
+	static Box* m_pBox;
 };
 
 typedef SimulationManager SIMA;
