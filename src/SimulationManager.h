@@ -9,16 +9,20 @@
 #include "Box.h"
 #include "Config.h"
 
+#include <iomanip>
+#include <sstream>
+
 class SimulationManager
 {
 public:
-	static float getAngle();
-	static float getRise() { return m_rise; }
-	static float getRun() { return m_run; }
-	static float getAcceleration() { return m_acceleration; }
-	static float getMass() { return m_mass; }
-	static float getTime();
-	static float getStopTime();
+	static std::string getAngle();
+	static std::string getRise();
+	static std::string getRun();
+	static std::string getAcceleration();
+	static std::string getMass();
+	
+	static std::string getTime();
+	static std::string getStopTime();
 	
 	static void launchSimulation();
 

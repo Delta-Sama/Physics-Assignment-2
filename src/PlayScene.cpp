@@ -3,8 +3,6 @@
 #include "EventManager.h"
 #include "SimulationManager.h"
 #include "../Template/DebugManager.h"
-#include <iomanip>
-#include <sstream>
 
 PlayScene::PlayScene()
 {
@@ -35,16 +33,16 @@ void PlayScene::update()
 {
 	updateDisplayList();
 
-	m_pMassLabel->setText("Mass = " + std::to_string(SIMA::getMass()) + " kg");
+	m_pMassLabel->setText("Mass = " + SIMA::getMass() + " kg");
 	
-	m_pRampRiseLabel->setText("Rise = " + std::to_string(static_cast<int>(SIMA::getRise()) * Config::PIX_TO_MET) + " m");
-	m_pRampRunLabel->setText("Run = " + std::to_string(static_cast<int>(SIMA::getRun()) * Config::PIX_TO_MET) + " m");
+	m_pRampRiseLabel->setText("Rise = " + SIMA::getRise() + " m");
+	m_pRampRunLabel->setText("Run = " + SIMA::getRun() + " m");
 	
-	m_pAngleLabel->setText("Angle = " + std::to_string(SIMA::getAngle()));
+	m_pAngleLabel->setText("Angle = " + SIMA::getAngle());
 
-	m_pAcceleration->setText("Acceleration: " + std::to_string(SIMA::getAcceleration()) + " m / s^2");
-	m_pTimeOnRampLabel->setText("Time on ramp: " + std::to_string(SIMA::getTime()) + " s");
-	m_pTimeToStopLabel->setText("Time to stop: " + std::to_string(SIMA::getStopTime()) + " s");
+	m_pAcceleration->setText("Acceleration: " + SIMA::getAcceleration() + " m/s2");
+	m_pTimeOnRampLabel->setText("Time on ramp: " + SIMA::getTime() + " s");
+	m_pTimeToStopLabel->setText("Time to stop: " + SIMA::getStopTime() + " s");
 }
 
 void PlayScene::clean()
@@ -158,12 +156,12 @@ void PlayScene::handleEvents()
 
 	}
 
-	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_R))
+	if (EventManager::Instance().KeyPressed(SDL_SCANCODE_R))
 	{
 		SIMA::reset();
 	}
 	
-	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_ESCAPE))
+	if (EventManager::Instance().KeyPressed(SDL_SCANCODE_ESCAPE))
 	{
 		TheGame::Instance()->quit();
 	}

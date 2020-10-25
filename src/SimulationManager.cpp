@@ -37,23 +37,6 @@ void SimulationManager::drawRamp()
 	DebugManager::DrawWideLine(4, { Config::START_X + m_run,Config::START_Y }, { Config::START_X,Config::START_Y - m_rise }, { 0,0,0,255 });
 }
 
-float SimulationManager::getAngle()
-{
-	return glm::degrees(m_angle);
-}
-
-float SimulationManager::getTime()
-{
-	return m_cur_frame_time;
-}
-
-float SimulationManager::getStopTime()
-{
-	const float max_x_velocity = -Config::g * sin(m_angle) * m_cur_frame_time * cos(m_angle);
-	
-	return max_x_velocity / (-Config::g * Config::FRICTION_COF);
-}
-
 void SimulationManager::launchSimulation()
 {
 	if (!m_simulation)
@@ -105,7 +88,12 @@ void SimulationManager::update()
 
 				m_pBox->getTransform()->position.x = Config::START_X + m_run + m_pBox->getWidth() / 2;
 				m_pBox->getTransform()->position.y = Config::START_Y - m_pBox->getHeight()/2;
-				m_pBox->getTransform()->rotation.x = 0.0f;
+				if (glm::degrees(m_angle) > 60.0f)
+					m_pBox->getTransform()->rotation.x = 90.0f;
+				else
+					m_pBox->getTransform()->rotation.x = 0.0f;
+
+				std::cout << glm::degrees(m_angle) << "\n";
 				
 				m_velocity = m_velocity * cos(m_angle);
 				m_acceleration = Config::g * Config::FRICTION_COF;
@@ -142,4 +130,64 @@ void SimulationManager::reset()
 	m_run = Config::START_RUN;
 	
 	m_simulation = false;
+}
+
+// GETTERS:
+
+std::string SimulationManager::getAngle()
+{
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(4) << glm::degrees(m_angle);
+	std::string s = stream.str();
+	return s;
+}
+
+std::string SimulationManager::getRise()
+{
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(2) << m_rise * Config::PIX_TO_MET;
+	std::string s = stream.str();
+	return s;
+}
+
+std::string SimulationManager::getRun()
+{
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(2) << m_run * Config::PIX_TO_MET;
+	std::string s = stream.str();
+	return s;
+}
+
+std::string SimulationManager::getAcceleration()
+{
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(3) << m_acceleration;
+	std::string s = stream.str();
+	return s;
+}
+
+std::string SimulationManager::getMass()
+{
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(2) << m_mass;
+	std::string s = stream.str();
+	return s;
+}
+
+std::string SimulationManager::getTime()
+{
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(4) << m_cur_frame_time;
+	std::string s = stream.str();
+	return s;
+}
+
+std::string SimulationManager::getStopTime()
+{
+	const float max_x_velocity = -Config::g * sin(m_angle) * m_cur_frame_time * cos(m_angle);
+
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(4) << max_x_velocity / (-Config::g * Config::FRICTION_COF);
+	std::string s = stream.str();
+	return s;
 }
