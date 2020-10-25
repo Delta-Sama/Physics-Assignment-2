@@ -81,7 +81,7 @@ void SimulationManager::update()
 			
 			m_pBox->getTransform()->position.x += m_velocity * m_direction.x * Config::MET_TO_PIX / Config::FPS;
 			m_pBox->getTransform()->position.y += m_velocity * m_direction.y * Config::MET_TO_PIX / Config::FPS;
-
+			
 			if (m_curtime >= m_time && !m_frictionSurface)
 			{
 				m_frictionSurface = true;

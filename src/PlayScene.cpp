@@ -182,7 +182,7 @@ void PlayScene::start()
 
 	SIMA::setBox(m_pBox);
 
-	const SDL_Color white = { 10, 10, 40, 255 };
+	const SDL_Color white = { 0, 0, 40, 255 };
 	m_pMassLabel = new Label("Mass", "Tusj", 30, white, glm::vec2(190.0f, 40.0f));
 	m_pMassLabel->setParent(this);
 	addChild(m_pMassLabel);
@@ -211,16 +211,16 @@ void PlayScene::start()
 	m_pAcceleration->setParent(this);
 	addChild(m_pAcceleration);
 
-	const SDL_Color light_green = { 10, 30, 10, 255 };
-	std::string instructions[] = { "H - close instructions", "R - reset" ,"A|D - change run", "W|S - change rise", "Q|E - change mass",
-		"SPACE - Launch Simulation" };
-	for (int i = 0; i < 6; i++)
+	const SDL_Color light_green = { 255, 255, 0, 255 };
+	std::string instructions[] = { "SPACE - Launch Simulation" ,"A|D - change run", "W|S - change rise", "Q|E - change mass",
+		"R - reset" };
+	for (int i = 0; i < 5; i++)
 	{
-		Label* m_pInstuctionsLabel = new Label(instructions[i], "Tusj", 30, light_green, glm::vec2(750.0f, 200.0f + 35.0f * i));
+		Label* m_pInstuctionsLabel = new Label(instructions[i], "Tusj", 30, light_green, glm::vec2(750.0f, 195.0f + 35.0f * i));
 		m_pInstuctionsLabel->setParent(this);
 		m_instructions.push_back(m_pInstuctionsLabel);
 	}
 
-	m_pShowInstuctionsLabel = new Label("H - open instructions", "Tusj", 30, light_green, glm::vec2(750.0f, 200.0f));
+	m_pShowInstuctionsLabel = new Label("H - open instructions", "Tusj", 30, light_green, glm::vec2(750.0f, 195.0f));
 	m_pAcceleration->setParent(this);
 }
