@@ -92,8 +92,6 @@ void SimulationManager::update()
 					m_pBox->getTransform()->rotation.x = 90.0f;
 				else
 					m_pBox->getTransform()->rotation.x = 0.0f;
-
-				std::cout << glm::degrees(m_angle) << "\n";
 				
 				m_velocity = m_velocity * cos(m_angle);
 				m_acceleration = Config::g * Config::FRICTION_COF;
@@ -106,8 +104,6 @@ void SimulationManager::update()
 		}
 		else
 		{
-			
-			
 			m_simulation = false;
 		}
 	}
