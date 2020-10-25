@@ -5,7 +5,7 @@ const int X_SIZE = Config::SCREEN_WIDTH;
 const int Y_SIZE = Config::SCREEN_HEIGHT;
 
 Background::Background() {
-	TextureManager::Instance()->load("../Assets/textures/PhysicsBackground.png", "PhysicsBackground");
+	TextureManager::Instance()->load("../Assets/textures/Background.png", "PhysicsBackground");
 
 	setWidth(X_SIZE);
 	setHeight(Y_SIZE);

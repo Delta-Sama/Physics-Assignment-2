@@ -12,14 +12,13 @@
 class SimulationManager
 {
 public:
-	static float getAngle() {
-		return m_angle;
-	} //glm::degrees(m_angle); }
+	static float getAngle();
 	static float getRise() { return m_rise; }
 	static float getRun() { return m_run; }
 	static float getAcceleration() { return m_acceleration; }
 	static float getMass() { return m_mass; }
 	static float getTime();
+	static float getStopTime();
 	
 	static void launchSimulation();
 
@@ -30,6 +29,7 @@ public:
 
 	static void changeRise(float num) { m_rise = std::clamp(m_rise + num, Config::MIN_RISE, Config::MAX_RISE); }
 	static void changeRun(float num) { m_run = std::clamp(m_run + num, Config::MIN_RUN, Config::MAX_RUN); }
+	static void changeMass(float num) { m_mass = std::clamp(m_mass + num, Config::MIN_MASS, Config::MAX_MASS); }
 	static float calculateTime();
 
 	static void setBox(Box* box) { m_pBox = box; }
@@ -48,6 +48,7 @@ private:
 	static int m_rise;
 	static int m_run;
 
+	static float m_cur_frame_time;
 	static float m_time;
 	static float m_curtime;
 

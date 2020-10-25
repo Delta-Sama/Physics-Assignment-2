@@ -18,9 +18,10 @@ public:
 	static const int FPS = 60;
 
 	static constexpr float g = -9.8f;
+	static constexpr float PI = 3.14159265359f;
 
 	static const int START_X = 20;
-	static const int START_Y = 550;
+	static const int START_Y = 500;
 
 	static constexpr float FRICTION_COF = 0.42f;
 	
@@ -31,13 +32,16 @@ public:
 	static constexpr float MAX_RISE = 350.0f;
 	static constexpr float MIN_RUN = 20.0f;
 	static constexpr float MAX_RUN = 500.0f;
+	static constexpr float MIN_MASS = 0.2f;
+	static constexpr float MAX_MASS = 100.0f;
 
 	static constexpr float CHANGE_ANGLE = 5.0f;
 	static constexpr float CHANGE_RISE = 5.0f;
 	static constexpr float CHANGE_RUN = 5.0f;
-
-	static constexpr float START_RISE = 95.0f;
-	static constexpr float START_RUN = 95.0f;
+	static constexpr float CHANGE_MASS = 0.2f;
+	
+	static constexpr float START_RISE = 60.0f;
+	static constexpr float START_RUN = 80.0f;
 	static constexpr float START_MASS = 12.8f;
 	static constexpr float START_ANGLE = 15.0f;
 

@@ -31,6 +31,7 @@ private:
 
 	int m_changeRun;
 	int m_changeRise;
+	int m_changeMass;
 
 	Box* m_pBox;
 	
@@ -44,7 +45,8 @@ private:
 	Label* m_pShowInstuctionsLabel;
 	std::vector<Label*> m_instructions;
 	
-	Label* m_pTimeRequiredLabel;
+	Label* m_pTimeOnRampLabel;
+	Label* m_pTimeToStopLabel;
 	Label* m_pAcceleration;
 	
 };

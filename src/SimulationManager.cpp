@@ -8,6 +8,7 @@
 #include "WayPoint.h"
 #include "../Template/DebugManager.h"
 
+float SIMA::m_cur_frame_time = 0.0f;
 float SIMA::m_time = 0.0f;
 float SIMA::m_curtime = 0.0f;
 
@@ -31,14 +32,26 @@ SimulationManager::~SimulationManager() = default;
 
 void SimulationManager::drawRamp()
 {
-	DebugManager::DrawWideLine(4, { Config::START_X,Config::START_Y }, { Config::START_X + m_run,Config::START_Y }, { 255,0,0,255 });
-	DebugManager::DrawWideLine(4, { Config::START_X,Config::START_Y }, { Config::START_X,Config::START_Y - m_rise }, { 255,0,0,255 });
-	DebugManager::DrawWideLine(4, { Config::START_X + m_run,Config::START_Y }, { Config::START_X,Config::START_Y - m_rise }, { 255,0,0,255 });
+	DebugManager::DrawWideLine(4, { Config::START_X,Config::START_Y }, { Config::START_X + m_run,Config::START_Y }, { 0,0,0,255 });
+	DebugManager::DrawWideLine(4, { Config::START_X,Config::START_Y }, { Config::START_X,Config::START_Y - m_rise }, { 0,0,0,255 });
+	DebugManager::DrawWideLine(4, { Config::START_X + m_run,Config::START_Y }, { Config::START_X,Config::START_Y - m_rise }, { 0,0,0,255 });
+}
+
+float SimulationManager::getAngle()
+{
+	return glm::degrees(m_angle);
 }
 
 float SimulationManager::getTime()
 {
-	return calculateTime();
+	return m_cur_frame_time;
+}
+
+float SimulationManager::getStopTime()
+{
+	const float max_x_velocity = -Config::g * sin(m_angle) * m_cur_frame_time * cos(m_angle);
+	
+	return max_x_velocity / (-Config::g * Config::FRICTION_COF);
 }
 
 void SimulationManager::launchSimulation()
@@ -47,8 +60,8 @@ void SimulationManager::launchSimulation()
 	{
 		m_simulation = true;
 
-		m_time = calculateTime();
-		std::cout << "Time : " << m_time << "\n";
+		m_time = m_cur_frame_time;
+		
 		m_curtime = 0.0f;
 		//setup
 		m_direction = { cos(m_angle), sin(m_angle) };
@@ -58,9 +71,11 @@ void SimulationManager::launchSimulation()
 }
 
 void SimulationManager::update()
-{
+{	
 	if (!m_simulation)
 	{
+		m_cur_frame_time = calculateTime();
+		
 		float angle = atan2(m_rise, m_run);
 
 		float size_x = m_pBox->getWidth() / 2;
